@@ -9,25 +9,47 @@ module.exports = async function handler(req, res) {
     return;
   }
 
-  const API_KEY = process.env.ANTHROPIC_API_KEY;
+  const API_KEY = process.env.GEMINI_API_KEY;
   if (!API_KEY) {
-    res.status(500).json({ error: { message: 'Configure ANTHROPIC_API_KEY em: Vercel → seu projeto → Settings → Environment Variables' } });
+    res.status(500).json({ error: { message: 'Configure GEMINI_API_KEY em: Vercel → Settings → Environment Variables' } });
     return;
   }
 
   try {
-    const upstream = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': API_KEY,
-        'anthropic-version': '2023-06-01',
-      },
-      body: JSON.stringify(req.body),
-    });
+    const { system, messages, max_tokens } = req.body;
+
+    const geminiBody = {
+      ...(system && { system_instruction: { parts: [{ text: system }] } }),
+      contents: messages.map(m => ({
+        role: m.role === 'assistant' ? 'model' : 'user',
+        parts: [{ text: typeof m.content === 'string' ? m.content : (m.content[0]?.text || '') }]
+      })),
+      generationConfig: {
+        maxOutputTokens: max_tokens || 4096,
+        temperature: 0.9,
+      }
+    };
+
+    const upstream = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(geminiBody),
+      }
+    );
+
     const data = await upstream.json();
-    res.status(upstream.status).json(data);
+
+    if (!upstream.ok) {
+      res.status(upstream.status).json({ error: { message: data.error?.message || 'Erro da API Gemini' } });
+      return;
+    }
+
+    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+    res.status(200).json({ content: [{ type: 'text', text }] });
+
   } catch (err) {
-    res.status(502).json({ error: { message: 'Falha ao contatar Anthropic: ' + err.message } });
+    res.status(502).json({ error: { message: 'Falha ao contatar Gemini: ' + err.message } });
   }
 };
