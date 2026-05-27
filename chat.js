@@ -10,7 +10,7 @@ module.exports = async function handler(req, res) {
 
   const API_KEY = process.env.ANTHROPIC_API_KEY;
   if (!API_KEY) {
-    return res.status(500).json({ error: { message: 'ANTHROPIC_API_KEY não configurada no painel da Vercel.' } });
+    return res.status(500).json({ error: { message: 'API key não configurada.' } });
   }
 
   const body = JSON.stringify(req.body);
@@ -38,7 +38,7 @@ module.exports = async function handler(req, res) {
       });
     });
     pr.on('error', (e) => {
-      res.status(502).json({ error: { message: 'Falha de conexão: ' + e.message } });
+      res.status(502).json({ error: { message: e.message } });
       resolve();
     });
     pr.write(buf);
