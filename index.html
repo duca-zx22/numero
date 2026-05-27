@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arcano Numerológico — Mapa da Alma</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#05050d;--deep:#07071a;--surf:#0c0c1f;
+  --card:#101028;--card2:#161638;--vell:#1c1c44;
+  --gold:#c9a84c;--goldh:#f0d878;--goldl:#6b4e1a;
+  --vio:#7c3aed;--vioh:#b89bf8;--viol:rgba(124,58,237,.22);
+  --rose:#c0457a;--teal:#2dd4bf;
+  --tx:#eee8f6;--mu:#7a6e96;--dim:#3c3560;
+  --ln:rgba(201,168,76,.13);--lnh:rgba(201,168,76,.38);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--tx);font-family:'EB Garamond',serif;min-height:100vh;overflow-x:hidden}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.018;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px}
+#sf{position:fixed;inset:0;pointer-events:none;z-index:0}
+.wrap{position:relative;z-index:1;max-width:1140px;margin:0 auto;padding:0 28px}
+
+/* HEADER */
+.hdr{text-align:center;padding:60px 24px 36px}
+.hdr::after{content:'';display:block;width:1px;height:56px;background:linear-gradient(to bottom,var(--gold),transparent);margin:30px auto 0}
+.sigil{width:96px;height:96px;margin:0 auto 26px}
+.sigil svg{width:100%;height:100%}
+.s-out{animation:gspin 28s linear infinite;transform-origin:48px 48px;filter:drop-shadow(0 0 10px rgba(201,168,76,.45))}
+.s-mid{animation:gspin 18s linear infinite reverse;transform-origin:48px 48px}
+.s-dot{animation:gpulse 3s ease-in-out infinite}
+@keyframes gspin{to{transform:rotate(360deg)}}
+@keyframes gpulse{0%,100%{opacity:.6}50%{opacity:1}}
+.site-ttl{font-family:'Cinzel Decorative',serif;font-size:clamp(20px,4vw,44px);font-weight:700;letter-spacing:.06em;
+  background:linear-gradient(150deg,var(--goldl) 0%,var(--gold) 30%,var(--goldh) 55%,var(--vioh) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.2;margin-bottom:9px}
+.site-sub{font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;font-weight:300;color:var(--mu);letter-spacing:.05em}
+.orn{display:flex;align-items:center;gap:18px;max-width:360px;margin:0 auto 34px}
+.orn::before,.orn::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--goldl),transparent)}
+.orn-t{font-family:'Cinzel',serif;font-size:12px;color:var(--gold);letter-spacing:.28em;white-space:nowrap}
+
+/* TABS */
+.tabs-nav{display:flex;gap:3px;background:var(--surf);border:1px solid var(--ln);border-radius:60px;padding:5px;max-width:720px;margin:0 auto 46px;position:relative;z-index:2}
+.tb{flex:1;padding:12px 16px;background:transparent;border:none;border-radius:60px;color:var(--mu);font-family:'Cinzel',serif;font-size:11px;letter-spacing:.13em;cursor:pointer;transition:.35s;white-space:nowrap;position:relative;overflow:hidden}
+.tb::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--goldl),var(--viol));opacity:0;transition:.35s;border-radius:60px}
+.tb:hover{color:var(--tx)}.tb.active::before{opacity:1}.tb.active{color:var(--goldh);box-shadow:0 2px 18px rgba(201,168,76,.2)}
+.tb span{position:relative}
+.panel{display:none;animation:rise .5s cubic-bezier(.22,1,.36,1)}.panel.active{display:block}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+/* FORM */
+.fi{text-align:center;margin-bottom:40px}
+.fi h2{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,4vw,40px);font-weight:300;font-style:italic;color:var(--goldh);margin-bottom:10px;line-height:1.25}
+.fi p{color:var(--mu);font-size:16px;line-height:1.75;max-width:560px;margin:0 auto}
+.fshell{max-width:660px;margin:0 auto;background:var(--card);border:1px solid var(--ln);border-radius:22px;padding:40px 44px;position:relative;overflow:hidden}
+.fshell::before{content:'';position:absolute;top:-80px;right:-80px;width:240px;height:240px;background:radial-gradient(circle,rgba(124,58,237,.12),transparent 65%);border-radius:50%;pointer-events:none}
+@media(max-width:600px){.fshell{padding:28px 18px}}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
+.fc{grid-column:1/-1}
+@media(max-width:550px){.fg{grid-template-columns:1fr}}
+.field{display:flex;flex-direction:column;gap:7px}
+.field label{font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:.2em;color:var(--gold);text-transform:uppercase}
+.field input,.field select,.field textarea{background:var(--surf);border:1px solid var(--ln);border-radius:10px;padding:13px 15px;color:var(--tx);font-family:'EB Garamond',serif;font-size:15px;outline:none;transition:.3s;width:100%;resize:none;-webkit-appearance:none;appearance:none}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--goldl);background:var(--deep);box-shadow:0 0 0 3px rgba(201,168,76,.09)}
+.field input::placeholder,.field textarea::placeholder{color:var(--dim)}
+.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237a6e96' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px}
+.field select option{background:#0c0c1f}
+.hint{font-size:11px;color:var(--dim);font-style:italic;margin-top:-2px}
+.hint a{color:var(--goldl);text-decoration:none}.hint a:hover{color:var(--gold)}
+
+/* CTA */
+.cta-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:17px 24px;margin-top:24px;border:none;border-radius:60px;font-family:'Cinzel',serif;font-size:12px;letter-spacing:.22em;color:#fff;cursor:pointer;position:relative;overflow:hidden;background:linear-gradient(110deg,#5c3a10 0%,#c9a84c 45%,#6b21a8 100%);transition:.3s}
+.cta-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(110deg,#c9a84c,#7c3aed);opacity:0;transition:.35s}
+.cta-btn:hover::before{opacity:1}.cta-btn:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(201,168,76,.28)}
+.cta-btn:disabled{opacity:.45;cursor:not-allowed;transform:none!important}
+.cta-btn span{position:relative}
+.errb{display:none;margin-top:16px;background:rgba(192,69,122,.1);border:1px solid rgba(192,69,122,.3);border-radius:10px;padding:14px 18px;color:#f0a0c0;font-size:14px;line-height:1.6}.errb.on{display:block}
+
+/* LOADING */
+.lstate{text-align:center;padding:88px 24px}
+.o-ring{width:72px;height:72px;margin:0 auto 22px;border:1.5px solid var(--ln);border-top-color:var(--gold);border-radius:50%;animation:gspin 1s linear infinite}
+.lstate p{font-family:'Cormorant Garamond',serif;font-size:19px;font-style:italic;color:var(--mu)}
+.lsteps{margin-top:26px;display:flex;flex-direction:column;gap:7px;align-items:center}
+.lstep{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;color:var(--dim);text-transform:uppercase;transition:.5s}.lstep.lit{color:var(--gold)}
+.dots span{animation:blink 1.4s infinite}.dots span:nth-child(2){animation-delay:.22s}.dots span:nth-child(3){animation-delay:.44s}
+@keyframes blink{0%,80%,100%{opacity:.15}40%{opacity:1}}
+
+/* MAP */
+#map-out{max-width:900px;margin:0 auto}
+.mempty{text-align:center;padding:90px 24px}
+.mempty .eg{font-size:52px;margin-bottom:18px;opacity:.18;animation:float 4s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.mempty p{font-family:'Cormorant Garamond',serif;font-size:19px;font-style:italic;color:var(--dim);line-height:1.7}
+.mhero{background:linear-gradient(135deg,var(--card),var(--card2));border:1px solid var(--ln);border-radius:22px;padding:36px 40px;margin-bottom:32px;text-align:center;position:relative;overflow:hidden}
+.mhero::before{content:'';position:absolute;top:-60px;right:-60px;width:220px;height:220px;background:radial-gradient(circle,rgba(124,58,237,.15),transparent 65%);border-radius:50%}
+.mh-lbl{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.28em;color:var(--goldl);text-transform:uppercase;margin-bottom:11px;position:relative}
+.mh-name{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,4vw,38px);font-weight:300;font-style:italic;color:var(--goldh);margin-bottom:5px;position:relative}
+.mh-dob{font-family:'Cinzel',serif;font-size:11px;color:var(--mu);letter-spacing:.1em;position:relative}
+.nstrip{display:flex;justify-content:center;flex-wrap:wrap;margin-top:28px;position:relative;border-top:1px solid var(--ln);padding-top:20px;gap:0}
+.nsi{padding:10px 18px;text-align:center;border-right:1px solid var(--ln)}.nsi:last-child{border-right:none}
+.nsi-n{font-family:'Cinzel',serif;font-size:26px;font-weight:700;background:linear-gradient(135deg,var(--gold),var(--vioh));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;margin-bottom:4px}
+.nsi-l{font-family:'Cinzel',serif;font-size:8px;letter-spacing:.13em;color:var(--dim);text-transform:uppercase}
+.mc{line-height:1.88;font-size:16.5px}
+.mc h1{font-family:'Cinzel',serif;font-size:clamp(13px,2.2vw,19px);font-weight:600;letter-spacing:.12em;color:var(--gold);margin:46px 0 14px;padding-bottom:11px;border-bottom:1px solid var(--ln);text-transform:uppercase}
+.mc h1:first-child{margin-top:0}
+.mc h2{font-family:'Cormorant Garamond',serif;font-size:clamp(17px,2.5vw,24px);font-weight:600;font-style:italic;color:var(--vioh);margin:32px 0 11px}
+.mc h3{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.14em;color:var(--goldl);text-transform:uppercase;margin:24px 0 7px}
+.mc p{margin-bottom:17px;color:var(--tx)}
+.mc strong{color:var(--goldh)}.mc em{color:var(--vioh);font-style:italic}
+.mc hr{border:none;border-top:1px solid var(--ln);margin:32px 0}
+.mc blockquote{border-left:2px solid var(--gold);padding:14px 20px;margin:22px 0;background:var(--card);border-radius:0 12px 12px 0;font-style:italic;color:var(--mu);font-size:16px}
+.mc ul{padding-left:20px;margin-bottom:14px}.mc li{margin-bottom:6px;color:var(--tx);font-size:15.5px}
+.mc table{width:100%;border-collapse:collapse;margin:18px 0;font-size:14px}
+.mc th{background:var(--card2);color:var(--gold);font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;padding:10px 13px;border:1px solid var(--ln);text-align:left}
+.mc td{padding:9px 13px;border:1px solid var(--ln);color:var(--tx)}.mc tr:nth-child(even) td{background:rgba(255,255,255,.018)}
+
+/* ARTICLE */
+.awrap{max-width:820px;margin:0 auto}
+.ahdr{text-align:center;padding:10px 0 48px}
+.ahdr::after{content:'';display:block;width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:28px auto 0}
+.a-kick{display:block;font-family:'Cinzel',serif;font-size:9px;letter-spacing:.26em;color:var(--dim);text-transform:uppercase;margin-bottom:16px}
+.a-ttl{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,5vw,52px);font-weight:300;font-style:italic;color:var(--goldh);line-height:1.15;margin-bottom:14px}
+.a-deck{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--mu);font-style:italic;max-width:580px;margin:0 auto;line-height:1.65}
+.abody{font-size:17px;line-height:1.95}
+.abody>p:first-of-type::first-letter{font-family:'Cormorant Garamond',serif;float:left;font-size:4.8em;line-height:.72;padding:.05em .1em 0 0;color:var(--gold);font-style:italic;font-weight:300}
+.abody p{color:var(--tx);margin-bottom:20px}.abody strong{color:var(--goldh)}.abody em{font-style:italic;color:var(--mu)}
+.abody h3{font-family:'Cinzel',serif;font-size:clamp(11px,1.5vw,14px);font-weight:600;letter-spacing:.18em;color:var(--gold);text-transform:uppercase;margin:58px 0 18px;padding-bottom:11px;border-bottom:1px solid var(--ln);position:relative}
+.abody h3::after{content:'';position:absolute;bottom:-1px;left:0;width:36px;height:1px;background:var(--gold)}
+.abody h4{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;font-style:italic;color:var(--vioh);margin:34px 0 10px}
+.pq{font-family:'Cormorant Garamond',serif;font-size:clamp(19px,2.7vw,27px);font-weight:300;font-style:italic;color:var(--goldh);text-align:center;padding:40px 30px;margin:48px 0;border-top:1px solid var(--ln);border-bottom:1px solid var(--ln);line-height:1.45;position:relative}
+.pq::before{content:'\201C';position:absolute;top:-14px;left:22px;font-size:86px;color:var(--goldl);font-style:italic;line-height:1;opacity:.38}
+.pq-at{display:block;font-size:14px;color:var(--mu);margin-top:12px;font-style:normal}
+.ngrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(226px,1fr));gap:13px;margin:26px 0}
+.nc{background:var(--card);border:1px solid var(--ln);border-radius:14px;padding:20px 17px;transition:.3s;cursor:default}
+.nc:hover{border-color:var(--lnh);transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.42);background:var(--card2)}
+.nc-n{font-family:'Cinzel',serif;font-size:36px;font-weight:700;line-height:1;margin-bottom:7px;background:linear-gradient(135deg,var(--gold),var(--vioh));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nc-t{font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:var(--goldh);margin-bottom:7px}
+.nc-d{font-size:13px;color:var(--mu);line-height:1.57}
+.nc-s{font-size:12px;color:rgba(192,69,122,.8);margin-top:6px;font-style:italic}
+.tl{position:relative;padding-left:28px;margin:26px 0}
+.tl::before{content:'';position:absolute;left:7px;top:4px;bottom:4px;width:1.5px;background:linear-gradient(to bottom,var(--gold),var(--vio),transparent)}
+.tli{position:relative;margin-bottom:26px}
+.tli::before{content:'';position:absolute;left:-22px;top:6px;width:9px;height:9px;background:var(--gold);border-radius:50%;box-shadow:0 0 9px rgba(201,168,76,.5)}
+.tly{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;color:var(--goldl);text-transform:uppercase;margin-bottom:3px}
+.tlt{font-size:15px;color:var(--mu);line-height:1.65}
+.agrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin:22px 0}
+.ac{background:linear-gradient(135deg,var(--card),var(--card2));border:1px solid var(--ln);border-radius:13px;padding:17px 15px;text-align:center;transition:.3s}
+.ac:hover{border-color:var(--lnh);transform:scale(1.025)}
+.ac-i{font-size:26px;margin-bottom:8px}.ac-n{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;margin-bottom:5px}.ac-d{font-size:12.5px;color:var(--mu);line-height:1.5}
+.ib{background:linear-gradient(135deg,rgba(124,58,237,.09),rgba(201,168,76,.04));border:1px solid rgba(124,58,237,.27);border-radius:14px;padding:22px 25px;margin:24px 0}
+.ib-h{font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:.21em;color:var(--vioh);text-transform:uppercase;margin-bottom:10px}
+.ib p{font-size:15px;color:var(--mu);line-height:1.77;margin:0}
+.kbox{background:linear-gradient(135deg,rgba(192,69,122,.08),rgba(201,168,76,.04));border:1px solid rgba(192,69,122,.22);border-radius:14px;padding:22px 25px;margin:24px 0}
+.kbox-h{font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:.21em;color:var(--rose);text-transform:uppercase;margin-bottom:10px}
+.kbox p{font-size:15px;color:var(--mu);line-height:1.77;margin:0}
+
+footer{text-align:center;padding:60px 24px 36px;margin-top:80px;border-top:1px solid var(--ln)}
+.fsig{font-size:22px;display:block;margin-bottom:11px;opacity:.22}
+footer p{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.17em;color:var(--dim);text-transform:uppercase;line-height:2.1}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--ink)}::-webkit-scrollbar-thumb{background:var(--goldl);border-radius:3px}
+</style>
+</head>
+<body>
+<canvas id="sf"></canvas>
+<div class="wrap">
+
+<header class="hdr">
+  <div class="sigil">
+    <svg viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g class="s-out"><circle cx="48" cy="48" r="44" stroke="#c9a84c" stroke-width=".7" stroke-dasharray="3 3.5" opacity=".6"/><circle cx="48" cy="4" r="2.2" fill="#c9a84c" opacity=".75"/><circle cx="48" cy="92" r="2.2" fill="#c9a84c" opacity=".75"/><circle cx="4" cy="48" r="1.6" fill="#c9a84c" opacity=".45"/><circle cx="92" cy="48" r="1.6" fill="#c9a84c" opacity=".45"/></g>
+      <g class="s-mid"><circle cx="48" cy="48" r="33" stroke="#7c3aed" stroke-width=".5" stroke-dasharray="2 5" opacity=".65"/></g>
+      <polygon points="48,8 59,36 89,36 65,55 74,83 48,65 22,83 31,55 7,36 37,36" fill="none" stroke="#c9a84c" stroke-width=".75" opacity=".55"/>
+      <polygon points="48,22 62,30 62,46 48,54 34,46 34,30" fill="none" stroke="#b89bf8" stroke-width=".55" opacity=".55"/>
+      <circle cx="48" cy="48" r="5.5" fill="#c9a84c" class="s-dot" opacity=".85"/>
+      <circle cx="48" cy="48" r="2" fill="#f0d878"/>
+    </svg>
+  </div>
+  <h1 class="site-ttl">Arcano Numerológico</h1>
+  <p class="site-sub">O Mapa Completo da Sua Alma</p>
+</header>
+
+<div class="orn"><span class="orn-t">✦ ✦ ✦</span></div>
+
+<nav class="tabs-nav">
+  <button class="tb active" data-tab="form"><span>⬡ &nbsp;Seus Dados</span></button>
+  <button class="tb" data-tab="map"><span>☽ &nbsp;Meu Mapa</span></button>
+  <button class="tb" data-tab="art"><span>✦ &nbsp;Universo Numerológico</span></button>
+</nav>
+
+<!-- ═══ FORM ═══ -->
+<div class="panel active" id="tab-form">
+  <div class="fi">
+    <h2>Revele o seu Mapa da Alma</h2>
+    <p>Preencha seu nome completo de registro e data de nascimento. O sistema calcula automaticamente 17 números e gera uma leitura profunda com inteligência artificial.</p>
+  </div>
+  <div class="fshell">
+    <div class="fg">
+      <div class="field fc">
+        <label>Nome Completo de Registro</label>
+        <input type="text" id="inp-name" placeholder="Ex: Maria Clara Santos Ferreira" autocomplete="off"/>
+        <span class="hint">Exatamente como consta na certidão de nascimento, com todos os sobrenomes</span>
+      </div>
+      <div class="field">
+        <label>Data de Nascimento</label>
+        <input type="date" id="inp-dob"/>
+      </div>
+      <div class="field">
+        <label>Hora de Nascimento</label>
+        <input type="time" id="inp-time"/>
+        <span class="hint">Opcional — adiciona a dimensão espiritual da hora</span>
+      </div>
+      <div class="field fc">
+        <label>Profundidade da Leitura</label>
+        <select id="inp-depth">
+          <option value="completo">✦ Completo — Todos os 17 números, ciclos e karma (3000+ palavras)</option>
+          <option value="essencial">◇ Essencial — Os 7 números fundamentais</option>
+          <option value="espiritual">☽ Espiritual — Missão, karma e propósito da alma</option>
+        </select>
+      </div>
+      <div class="field fc">
+        <label>Pergunta ou Intenção (opcional)</label>
+        <textarea id="inp-intent" rows="2" placeholder="Ex: Qual é minha missão de vida? Por que certos padrões se repetem? Estou no caminho certo?"></textarea>
+      </div>
+    </div>
+    <button class="cta-btn" id="gen-btn" onclick="gMap()">
+      <span>✦ &nbsp; REVELAR MEU MAPA NUMEROLÓGICO &nbsp; ✦</span>
+    </button>
+    <div class="errb" id="errb"></div>
+  </div>
+</div>
+
+<!-- ═══ MAP ═══ -->
+<div class="panel" id="tab-map">
+  <div id="map-out">
+    <div class="mempty">
+      <div class="eg">☽</div>
+      <p>Preencha seus dados na aba anterior<br>para revelar o mapa da sua alma.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ARTICLE ═══ -->
+<div class="panel" id="tab-art">
+<div class="awrap">
+  <div class="ahdr">
+    <span class="a-kick">Pesquisa Aprofundada · História · Filosofia · Psicologia Junguiana · Espiritualidade · Karma</span>
+    <h2 class="a-ttl">A Linguagem Oculta do Universo</h2>
+    <p class="a-deck">Da Babilônia ao inconsciente coletivo de Jung — uma arqueologia completa da numerologia: suas origens, arquétipos, significado profundo de cada número, dívidas kármicas e a relação com as grandes tradições espirituais do mundo.</p>
+  </div>
+  <div class="abody">
+
+<p>Antes do surgimento da escrita, antes dos templos e dos impérios, os seres humanos contavam. Marcavam ossos, entalhavam pedras, rastreavam ciclos lunares. Nessa prática aparentemente simples nasceu uma das intuições mais persistentes da história humana: que os números não são meras ferramentas para medir o mundo, mas <strong>espelhos da sua estrutura mais profunda</strong>. A numerologia é a sistematização milenar dessa intuição — um sistema que propõe que cada ser humano chega ao mundo com uma assinatura vibracional inscrita em seu nome e data de nascimento, e que decodificar essa assinatura é um ato de autoconhecimento genuíno.</p>
+
+<p>Ao longo de mais de quatro mil anos, civilizações radicalmente diferentes — babilônios, gregos, hebreus, indianos, chineses, egípcios — convergiram para a mesma conclusão: os números carregam qualidades, vibram em frequências distintas e revelam padrões que atravessam tanto o cosmos quanto a psique individual.</p>
+
+<div class="pq">"Os números são a linguagem na qual o universo está escrito."<span class="pq-at">— atribuído a Galileu Galilei</span></div>
+
+<h3>I. Origens: Da Babilônia a Pitágoras</h3>
+<p>A numerologia mais antiga emergiu na <strong>Mesopotâmia</strong>. Os caldeus desenvolveram um sistema baseado na frequência vibracional dos sons. O sistema caldeu reserva o <strong>9 como sagrado</strong> — fronteira entre o humano e o divino. O rei assírio Sargão II (séc. VIII a.C.) documentou em pedra que escolheu o número 16.283 para as muralhas de sua capital — valor correspondente ao seu nome em Gematria.</p>
+<p>Quando <strong>Pitágoras</strong> (c. 570–495 a.C.) declarou "tudo é número", não fazia matemática no sentido moderno — proclamava uma ontologia. A harmonia musical era seu argumento maior: consonâncias são razões numéricas simples (1:2, 2:3, 3:4). Se o cosmos ressoa harmoniosamente, é porque números o governam. Embora a tradição seja milenar, o sistema pitagórico <em>moderno</em> foi sistematizado por <strong>L. Dow Balliett</strong> e pela <strong>Dra. Juno Jordan</strong> no início do século XX.</p>
+
+<h3>II. A Cabala: Números como DNA Divino</h3>
+<p>O hebraico é uma língua alphanumerical — cada letra possui valor numérico específico. <em>Chai</em> (vida) = 18, daí presentes em múltiplos de 18. <em>Ahavah</em> (amor) = 13 = <em>echad</em> (um). Para os cabalistas: amor é unidade — estrutura matemática do pensamento divino. A <strong>Árvore da Vida</strong> mapeia dez esferas (Sefirot) correspondendo aos números 1 a 10, com 22 caminhos entre elas correspondendo às 22 letras hebraicas e aos 22 arcanos maiores do Tarô.</p>
+
+<h3>III. Os Números nas Grandes Tradições</h3>
+<div class="agrid">
+  <div class="ac"><div class="ac-i">✡</div><div class="ac-n">7</div><div class="ac-d">Buda caminhou 7 passos ao nascer. 7 braços na menorá. 7 sacramentos cristãos. 7 céus no Islã. O número do mistério universal.</div></div>
+  <div class="ac"><div class="ac-i">☯</div><div class="ac-n">108</div><div class="ac-d">Sagrado no hinduísmo e budismo. 108 contas no mala. A distância Terra-Sol = 108 diâmetros solares.</div></div>
+  <div class="ac"><div class="ac-i">✝</div><div class="ac-n">40</div><div class="ac-d">Jesus jejua 40 dias. Moisés 40 dias no Sinai. Noé 40 dias/noites. Número universal de provação e transformação.</div></div>
+  <div class="ac"><div class="ac-i">☸</div><div class="ac-n">3</div><div class="ac-d">Trindade cristã. Trimurti hindu. Três Joias budistas. Síntese criativa universal de dois opostos em tensão.</div></div>
+  <div class="ac"><div class="ac-i">🔯</div><div class="ac-n">18</div><div class="ac-d">Chai hebraico: vida. Presentes em múltiplos de 18 invocam fortuna. 18 orações na Amidah judaica.</div></div>
+  <div class="ac"><div class="ac-i">☪</div><div class="ac-n">12</div><div class="ac-d">12 apóstolos. 12 tribos. 12 signos zodiacais. 12 meses. Organização cíclica do cosmos em toda cultura.</div></div>
+</div>
+
+<h3>IV. Carl Jung e a Psicologia dos Números</h3>
+<p>Em seus estudos de alquimia, <strong>Carl Jung</strong> percebeu que textos medievais associavam sistematicamente ideias místicas a números específicos. "Esta, eu acreditava, eram as primeiras tentativas de delinear a ordem total do inconsciente coletivo, como a soma dos arquétipos." Para Jung, o número é um <strong>ordenador do caos psíquico</strong>.</p>
+<div class="pq">"Os números são os mais antigos e universalmente válidos símbolos de ordem. São a mais primitiva formulação espontânea imposta ao caos da experiência."<span class="pq-at">— Carl Gustav Jung</span></div>
+<p>Jung também desenvolveu a <strong>sincronicidade</strong> — coincidência significativa sem conexão causal. Ver 11:11 repetidamente não é acaso estatístico: é o inconsciente usando números para comunicar o que a consciência ainda não sabe articular.</p>
+
+<h3>V. Os 9 Arquétipos: Números como Espelhos da Alma</h3>
+<div class="ngrid">
+  <div class="nc"><div class="nc-n">1</div><div class="nc-t">O Iniciador · Herói Solar</div><div class="nc-d">Liderança, independência, pioneirismo. O ego emergindo do inconsciente. Planeta: Sol. Missão: inaugurar, liderar.</div><div class="nc-s">Sombra: isolamento, egocentrismo, intolerância à oposição.</div></div>
+  <div class="nc"><div class="nc-n">2</div><div class="nc-t">O Mediador · Anima/Animus</div><div class="nc-d">Cooperação, diplomacia, sensibilidade. A alma que complementa. Planeta: Lua. Missão: mediar, harmonizar.</div><div class="nc-s">Sombra: perder-se no outro, indecisão, dependência emocional.</div></div>
+  <div class="nc"><div class="nc-n">3</div><div class="nc-t">O Criador · Filho Divino</div><div class="nc-d">Criatividade, comunicação, alegria. Síntese dos dois primeiros. Planeta: Júpiter. Missão: expressar, inspirar.</div><div class="nc-s">Sombra: dispersão, superficialidade, dificuldade em concluir.</div></div>
+  <div class="nc"><div class="nc-n">4</div><div class="nc-t">O Construtor · Quaternário</div><div class="nc-d">Estabilidade, método, disciplina. O quaternário da totalidade psíquica junguiana. Planeta: Urano. Missão: estruturar.</div><div class="nc-s">Sombra: rigidez, medo da mudança, excesso de controle.</div></div>
+  <div class="nc"><div class="nc-n">5</div><div class="nc-t">O Aventureiro · Mensageiro</div><div class="nc-d">Liberdade, versatilidade, experiência. Hermes/Mercúrio. Planeta: Mercúrio. Missão: aprender pela vivência.</div><div class="nc-s">Sombra: comprometimento difícil, impulsividade, dependências.</div></div>
+  <div class="nc"><div class="nc-n">6</div><div class="nc-t">O Nutridor · Grande Mãe</div><div class="nc-d">Amor, responsabilidade, harmonia. Arquétipo da Grande Mãe jungiana. Planeta: Vênus. Missão: cuidar, curar.</div><div class="nc-s">Sombra: martírio, dificuldade em impor limites, controle.</div></div>
+  <div class="nc"><div class="nc-n">7</div><div class="nc-t">O Sábio · Velho Sábio</div><div class="nc-d">Sabedoria, análise, espiritualidade. O Velho Sábio junguiano. Planeta: Netuno. Missão: buscar verdade interior.</div><div class="nc-s">Sombra: isolamento, arrogância intelectual, frieza emocional.</div></div>
+  <div class="nc"><div class="nc-n">8</div><div class="nc-t">O Realizador · Mago</div><div class="nc-d">Poder, abundância, ambição. O símbolo ∞ girado 90°. Planeta: Saturno. Missão: transformar intenção em realidade.</div><div class="nc-s">Sombra: materialismo, abuso de poder, workaholic.</div></div>
+  <div class="nc"><div class="nc-n">9</div><div class="nc-t">O Humanista · Ancião Universal</div><div class="nc-d">Compaixão, completude, serviço. Soma de todos os números. Planeta: Marte. Missão: servir a humanidade.</div><div class="nc-s">Sombra: martírio, dificuldade em receber, apego disfarçado.</div></div>
+</div>
+
+<h3>VI. Os Números Mestres: O Triângulo da Iluminação</h3>
+<p>Os Números Mestres <strong>11, 22 e 33</strong> formam o Triângulo da Iluminação: o 11 é o visionário, o 22 constrói a visão, o 33 a entrega ao mundo. Não se reduzem porque sua essência seria perdida. Carregar um Número Mestre não é privilégio — é demanda. A maioria dos portadores opera na vibração reduzida (11→2, 22→4, 33→6) durante grande parte da vida.</p>
+<div class="ib">
+  <div class="ib-h">Os Três Arquétipos Mestres</div>
+  <p><strong>11 — O Canal:</strong> Intuição elevada, ponte entre o invisível e o coletivo. Mastery of the mind. Sombra: ansiedade, auto-sabotagem, dificuldade de enraizar insights em ação.<br><br><strong>22 — O Construtor Mestre:</strong> Une visão espiritual do 11 com capacidade construtiva do 4. Mastery of the physical world. O mais poderoso de todos os números. Sombra: pressão esmagadora, distanciamento dos próprios desejos.<br><br><strong>33 — O Mestre Instrutor:</strong> Expressão máxima do amor. Mastery of service and responsibility. Compaixão incondicional. Sombra: martírio, exaustão emocional, dificuldade em receber.</p>
+</div>
+
+<h3>VII. Dívidas Kármicas: A Memória da Alma</h3>
+<div class="kbox">
+  <div class="kbox-h">Os Quatro Números Kármicos</div>
+  <p><strong>13/4 — A Dívida do Trabalho:</strong> Preguiça ou exploração alheia em vidas anteriores. Lição: esforço honesto e persistente. A tentação de desistir ou tomar atalhos é a armadilha principal.<br><br><strong>14/5 — A Dívida da Liberdade:</strong> Abuso da liberdade através do excesso. Lição: liberdade verdadeira nasce <em>dentro</em> da estrutura, não da ausência dela. Moderação é a palavra-chave.<br><br><strong>16/7 — A Dívida do Ego:</strong> O "número da Torre" — queda do ego, destruição de estruturas construídas sobre vaidade. Lição: humildade radical e reconstrução com integridade.<br><br><strong>19/1 — A Dívida do Poder:</strong> Egocentrismo extremo, abuso de posição. Lição: liderança verdadeira serve em vez de dominar. Padrão de ascensão e queda para cultivar empatia.</p>
+</div>
+
+<h3>VIII. Os 17 Números do Mapa Completo</h3>
+<p>Um mapa completo contém <strong>17 números</strong>: <em>Essência</em> (Caminho de Vida, Expressão, Alma, Personalidade, Maturidade, Equilíbrio, Dia de Nascimento); <em>Padrões Ocultos</em> (Paixão Oculta, Lições Kármicas, Eu Subconsciente); <em>Ciclos de Vida</em> (Pedra Angular, Capstone, Primeira Vogal, 4 Pinnacles, 4 Desafios); e <em>Ciclos Pessoais</em> (Ano, Mês e Dia Pessoal). A maioria das leituras populares cobre apenas 3, deixando mais de 80% do sistema inexaminado.</p>
+
+<h3>IX. A Perspectiva Científica</h3>
+<p>A numerologia como sistema de previsão causal <strong>não tem sustentação em evidências científicas controladas</strong>. Estudos não encontraram correlações acima do acaso. Como sistema simbólico e psicológico, porém, tem valor legítimo: os arquétipos numéricos funcionam como espelhos nos quais a psique organiza narrativas de sentido — da mesma forma que tipologia junguiana, eneagrama ou MBTI. A convergência cultural independente em torno dos mesmos números sagrados é um fenômeno genuíno que merece investigação.</p>
+<div class="pq">"O valor de um sistema simbólico não está em sua capacidade de prever eventos futuros, mas em sua capacidade de revelar padrões presentes na psique que, de outra forma, permaneceriam invisíveis."<span class="pq-at">— perspectiva da psicologia analítica junguiana</span></div>
+
+  </div>
+</div>
+</div>
+
+<footer>
+  <span class="fsig">✦</span>
+  <p>Arcano Numerológico · Mapa da Alma · Pesquisa Aprofundada<br>
+  <span style="opacity:.35">Gerado com inteligência artificial · Ferramenta de autoconhecimento e reflexão</span></p>
+</footer>
+</div>
+
+<script>
+/* STARFIELD */
+(function(){const c=document.getElementById('sf'),x=c.getContext('2d');let S=[];function r(){c.width=innerWidth;c.height=innerHeight}function init(){S=[];for(let i=0;i<200;i++)S.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.1+.18,o:Math.random()*.55+.08,dx:(Math.random()-.5)*.038,dy:(Math.random()-.5)*.032,t:Math.random()*Math.PI*2,s:Math.random()*.016+.003})}function draw(){x.clearRect(0,0,c.width,c.height);S.forEach(s=>{s.t+=s.s;const a=s.o*(.45+.55*Math.sin(s.t));x.beginPath();x.arc(s.x,s.y,s.r,0,Math.PI*2);x.fillStyle=`rgba(210,195,255,${a})`;x.fill();s.x+=s.dx;s.y+=s.dy;if(s.x<0)s.x=c.width;if(s.x>c.width)s.x=0;if(s.y<0)s.y=c.height;if(s.y>c.height)s.y=0});requestAnimationFrame(draw)}addEventListener('resize',()=>{r();init()});r();init();draw();})();
+
+/* TABS */
+document.querySelectorAll('.tb').forEach(b=>{b.addEventListener('click',()=>{const t=b.dataset.tab;document.querySelectorAll('.tb').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById('tab-'+t).classList.add('active');window.scrollTo({top:0,behavior:'smooth'})})});
+
+/* PYTHAGOREAN ENGINE */
+const PY={A:1,B:2,C:3,D:4,E:5,F:6,G:7,H:8,I:9,J:1,K:2,L:3,M:4,N:5,O:6,P:7,Q:8,R:9,S:1,T:2,U:3,V:4,W:5,X:6,Y:7,Z:8};
+const VW=new Set('AEIOU');
+const lv=c=>PY[c.toUpperCase()]||0;
+function red(n,km=true){if(km&&(n===11||n===22||n===33))return n;if(n<10)return n;return red([...String(n)].reduce((a,d)=>a+parseInt(d),0),km)}
+function sumN(s,fn=null){return[...s.toUpperCase().replace(/[^A-Z]/g,'')].filter(c=>fn?fn(c):true).reduce((a,c)=>a+lv(c),0)}
+
+function calcAll(name,dob,time){
+  const[yr,mo,dy]=dob.split('-').map(Number);
+  const rDy=red(dy),rMo=red(mo),rYr=red([...String(yr)].reduce((a,d)=>a+parseInt(d),0));
+  const lpRaw=rDy+rMo+rYr,lp=red(lpRaw);
+  const kd=[];
+  [[lpRaw],[rDy+rMo],[rDy+rYr],[rMo+rYr]].forEach(([v])=>{if([13,14,16,19].includes(v)&&!kd.includes(v))kd.push(v)});
+  name.toUpperCase().split(/\s+/).forEach(w=>{const ws=[...w.replace(/[^A-Z]/g,'')].filter(c=>!VW.has(c)).reduce((a,c)=>a+lv(c),0);if([13,14,16,19].includes(ws)&&!kd.includes(ws))kd.push(ws)});
+  const soRaw=sumN(name,c=>VW.has(c));
+  [soRaw,red(soRaw,false)].forEach(v=>{if([13,14,16,19].includes(v)&&!kd.includes(v))kd.push(v)});
+  const exRaw=sumN(name),ex=red(exRaw),so=red(soRaw);
+  const peRaw=sumN(name,c=>!VW.has(c)),pe=red(peRaw),bd=red(dy);
+  const mat=red(red(lp,false)+red(ex,false));
+  const bh=time?red(parseInt(time.split(':')[0])):null;
+  const initials=name.split(/\s+/).map(w=>w.replace(/[^a-zA-Z]/g,'')[0]).filter(Boolean);
+  const bal=red(initials.reduce((a,c)=>a+lv(c),0));
+  const now=new Date(),cyear=now.getFullYear();
+  const rCY=red([...String(cyear)].reduce((a,d)=>a+parseInt(d),0));
+  const py=red(rDy+rMo+rCY),pm=red(py+(now.getMonth()+1));
+  const pinAge=36-red(lp,false);
+  const p1=red(rMo+rDy),p2=red(rDy+rYr),p3=red(red(p1,false)+red(p2,false)),p4=red(rMo+rYr);
+  const rDyC=red(dy,false);
+  const c1=Math.abs(rDyC-rMo),c2=Math.abs(rDyC-rYr),c3=Math.abs(c1-c2),c4=Math.abs(rMo-rYr);
+  const present=new Set();[...name.toUpperCase().replace(/[^A-Z]/g,'')].forEach(c=>{const v=lv(c);if(v)present.add(v)});
+  const kl=[1,2,3,4,5,6,7,8,9].filter(n=>!present.has(n));
+  const freq={};[...name.toUpperCase().replace(/[^A-Z]/g,'')].forEach(c=>{const v=lv(c);if(v)freq[v]=(freq[v]||0)+1});
+  const hp=+Object.entries(freq).sort((a,b)=>b[1]-a[1])[0][0];
+  const ss=present.size;
+  const letters=[...name.replace(/[^a-zA-Z]/g,'')];
+  const fl=letters[0]||'',ll=letters[letters.length-1]||'';
+  const fv=[...name.toUpperCase().replace(/[^A-Z]/g,'')].find(c=>VW.has(c))||'';
+  const age=cyear-yr;
+  let curPin,curPinN;
+  if(age<pinAge){curPin=1;curPinN=p1}else if(age<pinAge+9){curPin=2;curPinN=p2}else if(age<pinAge+18){curPin=3;curPinN=p3}else{curPin=4;curPinN=p4}
+  const wordMasters=[];
+  name.toUpperCase().split(/\s+/).forEach(w=>{const ws=sumN(w);if(ws===11||ws===22||ws===33)wordMasters.push({word:w,val:ws})});
+  return{lp,lpRaw,ex,so,pe,bd,mat,bh,bal,py,pm,p1,p2,p3,p4,pinAge,c1,c2,c3,c4,kl,kd,hp,ss,fl,ll,fv,curPin,curPinN,yr,mo,dy,now,age,wordMasters};
+}
+
+/* STEPS */
+const STEPS=['Calculando os 17 números do mapa…','Consultando os arquétipos primordiais…','Analisando ciclos e pinnacles…','Revelando padrões kármicos…','Tecendo a leitura personalizada…'];
+let si=0,st=null;
+function startSteps(){si=0;clearInterval(st);renderS();st=setInterval(()=>{si=Math.min(si+1,STEPS.length-1);renderS()},2400)}
+function renderS(){const el=document.getElementById('sl');if(el)el.innerHTML=STEPS.map((s,i)=>`<div class="lstep${i<=si?' lit':''}">${i<si?'✦':i===si?'◈':'◇'} ${s}</div>`).join('')}
+function stopSteps(){clearInterval(st)}
+
+/* GENERATE */
+async function gMap(){
+  const name=document.getElementById('inp-name').value.trim();
+  const dob=document.getElementById('inp-dob').value;
+  const time=document.getElementById('inp-time').value;
+  const depth=document.getElementById('inp-depth').value;
+  const intent=document.getElementById('inp-intent').value.trim();
+  const errEl=document.getElementById('errb');errEl.className='errb';
+  if(!name){errEl.className='errb on';errEl.innerHTML='⚠ &nbsp;Insira seu nome completo de registro.';return}
+  if(!dob){errEl.className='errb on';errEl.innerHTML='⚠ &nbsp;Insira sua data de nascimento.';return}
+  document.getElementById('gen-btn').disabled=true;
+  document.querySelectorAll('.tb').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelector('[data-tab="map"]').classList.add('active');
+  document.getElementById('tab-map').classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  document.getElementById('map-out').innerHTML=`<div class="lstate"><div class="o-ring"></div><p>O Oráculo está revelando sua assinatura cósmica<span class="dots"><span>.</span><span>.</span><span>.</span></span></p><div class="lsteps"><div id="sl"></div></div></div>`;
+  startSteps();
+  let N;
+  try{N=calcAll(name,dob,time)}
+  catch(e){stopSteps();document.getElementById('map-out').innerHTML=`<div style="background:rgba(192,69,122,.1);border:1px solid rgba(192,69,122,.3);border-radius:12px;padding:24px;color:#f0a0c0">Erro ao calcular: ${e.message}</div>`;document.getElementById('gen-btn').disabled=false;return}
+  const[yr,mo,dy]=dob.split('-').map(Number);
+  const dobFmt=`${String(dy).padStart(2,'0')}/${String(mo).padStart(2,'0')}/${yr}`;
+  const firstName=name.split(' ')[0];
+  const dLabel={completo:'Completo (17 números)',essencial:'Essencial',espiritual:'Espiritual'}[depth]||'Completo';
+  const iStr=intent?`\n\nPergunta/intenção: "${intent}"`:'';
+  const mNote=N.wordMasters.length?`\nNÚMEROS MESTRES NO NOME: ${N.wordMasters.map(m=>`${m.word}=${m.val}`).join(', ')}`:'';
+  const nb=`NÚMEROS PRÉ-CALCULADOS (use EXATAMENTE estes, não recalcule):
+Caminho de Vida: ${N.lp}${N.lpRaw!==N.lp?` (bruto: ${N.lpRaw})`:''}${N.lp===11||N.lp===22||N.lp===33?' ← NÚMERO MESTRE':''}
+Expressão: ${N.ex}${N.ex===11||N.ex===22||N.ex===33?' ← NÚMERO MESTRE':''}
+Impulso da Alma (vogais): ${N.so}${N.so===11||N.so===22||N.so===33?' ← NÚMERO MESTRE':''}
+Personalidade (consoantes): ${N.pe}${N.pe===11||N.pe===22||N.pe===33?' ← NÚMERO MESTRE':''}
+Dia de Nascimento: ${N.bd}${N.bd===11||N.bd===22||N.bd===33?' ← NÚMERO MESTRE':''}
+Maturidade: ${N.mat} | Equilíbrio: ${N.bal}${N.bh!=null?` | Hora: ${N.bh}`:''}
+Paixão Oculta: ${N.hp} | Eu Subconsciente: ${N.ss}/9
+Pedra Angular: ${N.fl} | Capstone: ${N.ll} | Primeira Vogal: ${N.fv}
+Ano Pessoal ${N.now.getFullYear()}: ${N.py} | Mês Pessoal: ${N.pm}
+Pinnacle 1: ${N.p1} (0–${N.pinAge} anos) | Pinnacle 2: ${N.p2} (${N.pinAge}–${N.pinAge+9})
+Pinnacle 3: ${N.p3} (${N.pinAge+9}–${N.pinAge+18})${N.p3===11||N.p3===22||N.p3===33?' ← MESTRE':''} | Pinnacle 4: ${N.p4} (${N.pinAge+18}+)
+PINNACLE ATUAL: ${N.curPin}º (número ${N.curPinN}) | Idade: ~${N.age} anos
+Desafios: ${N.c1} | ${N.c2} | ${N.c3} (principal) | ${N.c4}
+Dívidas Kármicas: ${N.kd.length?N.kd.join(', '):'nenhuma detectada'}
+Lições Kármicas (ausentes): ${N.kl.length?N.kl.join(', '):'nenhuma — mapa completo'}${mNote}`;
+
+  const SYS=`Você é um numerólogo mestre com profundo domínio das tradições pitagórica, caldeia e cabalística, integradas à psicologia junguiana. Cria mapas numerológicos em português brasileiro com qualidade literária: tecnicamente preciso, poeticamente rico, pessoalmente revelador. Nunca usa clichês. É específico, profundo, genuinamente útil. Números Mestres (11,22,33) NÃO se reduzem. Conhece profundamente as dívidas kármicas 13,14,16,19.`;
+  const USR=`Crie um mapa numerológico ${dLabel} COMPLETO E PROFUNDO para:
+
+Nome: ${name}
+Nascimento: ${dobFmt}${time?` às ${time}h`:''}, ~${N.age} anos${iStr}
+
+${nb}
+
+ESTRUTURA (use ## para seções principais, ### para subseções):
+
+## ✦ Abertura
+2 parágrafos dirigidos a ${firstName} (usando "você"). Atmosfera de reconhecimento profundo. Mencione nome e data como portadores de assinatura vibracional única.${N.wordMasters.length?` Destaque: ${N.wordMasters.map(m=>`${m.word}=${m.val}`).join(', ')} no nome.`:''}
+
+## ☽ O Caminho de Vida — ${N.lp}${N.lp===11||N.lp===22||N.lp===33?' (NÚMERO MESTRE)':''}
+MÍNIMO 5 parágrafos: (1) arquétipo e missão central; (2) dons naturais específicos para ${firstName}; (3) sombras e desafios; (4) como honrar este caminho no cotidiano; (5) interação com os outros números centrais.
+
+## ✦ A Trindade do Nome
+### Expressão — ${N.ex}: O que você veio manifestar (2 parágrafos)
+### Impulso da Alma — ${N.so}: O que sua alma deseja (2 parágrafos)
+### Personalidade — ${N.pe}: Como o mundo te percebe (1–2 parágrafos)
+
+## ◈ Números Especiais
+Dia ${N.bd} · Paixão Oculta ${N.hp} · Equilíbrio ${N.bal} · Eu Subconsciente ${N.ss}/9${N.bh!=null?` · Hora ${N.bh}`:''}
+(1 parágrafo por número, específico e personalizado)
+
+## 🜂 Karma e Lições da Alma
+### Dívidas Kármicas${N.kd.length?` — ${N.kd.join(', ')}`:' — Carta Limpa'}
+${N.kd.length?`Análise profunda: padrão de vidas anteriores, como se manifesta para ${firstName}, caminho de integração.`:'Nenhuma dívida detectada. O que isso revela sobre esta alma?'}
+
+### Lições Kármicas${N.kl.length?` — Ausentes: ${N.kl.join(', ')}`:'— Mapa Completo'}
+${N.kl.length?`Para cada ausente: o que representa, como se manifesta em padrões de ${firstName}, como desenvolver.`:`Todos os 9 presentes. Análise do Eu Subconsciente ${N.ss}/9.`}
+
+## ◉ Maturidade — ${N.mat}
+Quem ${firstName} está se tornando. A convergência do Caminho de Vida e da Expressão. (2 parágrafos)
+
+## ◎ Os Quatro Pinnacles: A Arquitetura da Vida
+Foco especial no ${N.curPin}º Pinnacle (${N.curPinN}) — ativo agora. O que está sendo pedido concretamente.${N.p3===11||N.p3===22||N.p3===33?` 3º Pinnacle Mestre ${N.p3} — análise aprofundada.`:''} (3–4 parágrafos)
+
+## △ Os Desafios de Vida — ${N.c1}·${N.c2}·${N.c3}·${N.c4}
+Desafio Principal ${N.c3} em especial. Obstáculos como oportunidades. (2 parágrafos)
+
+## ◬ Pedra Angular · Capstone · Primeira Vogal
+${N.fl} (início) · ${N.ll} (conclusão) · ${N.fv} (motivação instintiva). (2 parágrafos)
+
+## ✧ O Momento Presente — Ano ${N.py} · Mês ${N.pm}
+O que este ciclo pede de ${firstName}. Orientações concretas. (2–3 parágrafos)
+
+## ∞ Tabela — A Assinatura Energética
+| Número | Valor | Palavra-chave | Sombra a Integrar |
+(todos os 17 números)
+
+## ✦ Mensagem Final — O Fio de Ouro
+4 parágrafos poéticos e profundos. Narrativa coerente de toda a jornada.${intent?` Responda à pergunta: "${intent}".`:''}
+
+REGRAS: português brasileiro · "você" · MÍNIMO 3000 palavras · específico, nunca genérico · profundidade máxima.`;
+
+  try{
+    const res=await fetch('/api/chat',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:4096,system:SYS,messages:[{role:'user',content:USR}]})
+    });
+    const raw=await res.text();
+    if(!res.ok){let msg=`Erro ${res.status}`;try{msg=JSON.parse(raw).error?.message||msg}catch(_){}throw new Error(msg)}
+    let data;try{data=JSON.parse(raw)}catch(_){throw new Error('Resposta malformada. Tente novamente.')}
+    const text=(data.content||[]).map(b=>b.text||'').join('').trim();
+    if(!text)throw new Error('Resposta vazia. Tente novamente.');
+    stopSteps();renderMap(text,name,N,dobFmt,time);
+  }catch(e){
+    stopSteps();
+    document.getElementById('map-out').innerHTML=`<div style="background:rgba(192,69,122,.1);border:1px solid rgba(192,69,122,.3);border-radius:16px;padding:28px 32px;color:#f0a0c0;line-height:1.75;max-width:620px;margin:40px auto"><div style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:.18em;margin-bottom:12px">⚠ ERRO AO CONSULTAR O ORÁCULO</div><p style="margin-bottom:10px;font-weight:bold">${e.message}</p><p style="font-size:13px;opacity:.7">Verifique se o servidor está rodando (node server.js) e se a API key está no arquivo .env</p></div>`;
+  }
+  document.getElementById('gen-btn').disabled=false;
+}
+
+/* RENDER */
+function renderMap(text,name,N,dobFmt,time){
+  let h=text
+    .replace(/^#### (.+)$/gm,'<h3>$1</h3>').replace(/^### (.+)$/gm,'<h3>$1</h3>')
+    .replace(/^## (.+)$/gm,'<h2>$1</h2>').replace(/^# (.+)$/gm,'<h1>$1</h1>')
+    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*([^*\n]+?)\*/g,'<em>$1</em>')
+    .replace(/^---+$/gm,'<hr>').replace(/^> (.+)$/gm,'<blockquote>$1</blockquote>')
+    .replace(/^- (.+)$/gm,'<li>$1</li>');
+  h=h.replace(/^\|(.+)\|$/gm,(m,inner)=>{const cells=inner.split('|').map(c=>c.trim());if(cells.every(c=>/^[-: ]+$/.test(c)))return'__SEP__';return'__ROW__'+cells.join('||')+'__ENDROW__'});
+  h=h.replace(/(__ROW__[^\n]*__ENDROW__\n?)+/g,block=>{let first=true;return'<table>'+block.split('\n').filter(r=>r.includes('__ROW__')).map(r=>{const cells=r.replace(/__ROW__|__ENDROW__/g,'').split('||').filter(Boolean);const tag=first?'th':'td';first=false;return`<tr>${cells.map(c=>`<${tag}>${c}</${tag}>`).join('')}</tr>`}).join('')+'</table>'}).replace(/__SEP__\n?/g,'');
+  h=h.replace(/(<li>.+<\/li>\n?)+/g,m=>`<ul>${m}</ul>`);
+  h=h.split('\n\n').map(b=>{b=b.trim();if(!b)return'';if(/^<(h[1-6]|blockquote|hr|ul|table)/.test(b))return b;return`<p>${b.replace(/\n/g,' ')}</p>`}).join('\n');
+  h=h.replace(/<p>(<h[1-6][^>]*>[\s\S]*?<\/h[1-6]>)<\/p>/g,'$1').replace(/<p><hr><\/p>/g,'<hr>').replace(/<p>(<blockquote>)/g,'$1').replace(/(<\/blockquote>)<\/p>/g,'$1').replace(/<p>\s*<\/p>/g,'');
+  const badges=[['Caminho de Vida',N.lp],['Expressão',N.ex],['Alma',N.so],['Personalidade',N.pe],['Maturidade',N.mat],['Ano Pessoal',N.py]];
+  const hero=`<div class="mhero"><div class="mh-lbl">Mapa Numerológico da Alma · Sistema Pitagórico</div><div class="mh-name">${name}</div><div class="mh-dob">${dobFmt}${time?' &nbsp;·&nbsp; '+time+'h':''}</div><div class="nstrip">${badges.map(([l,v])=>`<div class="nsi"><div class="nsi-n">${v}</div><div class="nsi-l">${l}</div></div>`).join('')}</div></div>`;
+  document.getElementById('map-out').innerHTML=hero+`<div class="mc">${h}</div>`;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
