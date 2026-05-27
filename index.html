@@ -497,7 +497,7 @@ REGRAS: português brasileiro · "você" · MÍNIMO 3000 palavras · específico
     stopSteps();renderMap(text,name,N,dobFmt,time);
   }catch(e){
     stopSteps();
-    document.getElementById('map-out').innerHTML=`<div style="background:rgba(192,69,122,.1);border:1px solid rgba(192,69,122,.3);border-radius:16px;padding:28px 32px;color:#f0a0c0;line-height:1.75;max-width:620px;margin:40px auto"><div style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:.18em;margin-bottom:12px">⚠ ERRO AO CONSULTAR O ORÁCULO</div><p style="margin-bottom:10px;font-weight:bold">${e.message}</p><p style="font-size:13px;opacity:.7">Verifique se o servidor está rodando (node server.js) e se a API key está no arquivo .env</p></div>`;
+    document.getElementById('map-out').innerHTML=`<div style="background:rgba(192,69,122,.1);border:1px solid rgba(192,69,122,.3);border-radius:16px;padding:28px 32px;color:#f0a0c0;line-height:1.75;max-width:620px;margin:40px auto"><div style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:.18em;margin-bottom:12px">⚠ ERRO AO CONSULTAR O ORÁCULO</div><p style="margin-bottom:10px;font-weight:bold">${e.message}</p><p style="font-size:13px;opacity:.7">Verifique: ANTHROPIC_API_KEY está em Vercel → Settings → Environment Variables?</p></div>`;
   }
   document.getElementById('gen-btn').disabled=false;
 }
