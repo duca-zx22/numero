@@ -511,133 +511,69 @@ Lições Kármicas (números ausentes no nome):${klBlock}
 ${archRef}
 ${tensionBlock}${iStr}`;
 
-  const SYS=`Você é o mais preciso e perspicaz numerólogo em língua portuguesa, com domínio profundo das tradições pitagórica, caldeia e cabalística integradas à psicologia junguiana de Carl Jung.
+  const SYS=`Numerólogo mestre, tradições pitagórica+caldeia+cabalística+Jung. Português brasileiro literário. REGRAS: (1) ZERO frases genéricas — cada frase é específica para ESTE nome+estes números+esta combinação — PROIBIDO: "sua vida será marcada por...", "você tem um papel importante", "é importante lembrar que"; (2) dívidas kármicas: use SOMENTE os significados do bloco KARMA — 13=trabalho/preguiça, 14=abuso da liberdade, 16=queda do ego, 19=abuso de poder; (3) cubra os QUATRO Pinnacles; (4) inclua Mensagem Final completa; (5) explore tensões ENTRE números; (6) Eu Subconsciente=${N.ss}/9 = índice de arquétipos presentes, NÃO valor; (7) Mestres 11/22/33 nunca reduzem; (8) direto, impactante, sem eufemismos.`;
 
-REGRAS ABSOLUTAS DE QUALIDADE — viole qualquer uma e o mapa falha:
+  const kdInstr=N.kd.length
+    ? N.kd.map(k=>`Dívida ${k}: ${KARMIC_MEANINGS[k]} → 2§: como se manifesta concretamente para ${firstName} + caminho de integração.`).join(' ')
+    : `Carta limpa — 1§: o que significa, o que libera e o que exige.`;
 
-1. PROIBIDO usar frases genéricas. Exemplos do que NÃO escrever:
-   ❌ "sua vida será marcada por experiências variadas"
-   ❌ "você tem um papel importante a desempenhar"
-   ❌ "a sua energia é contagiosa"
-   ❌ "você tem o poder de inspirar os outros"
-   ❌ "é importante lembrar que..."
-   ❌ "seja através de X ou Y ou Z"
-   Cada frase deve ser específica para esta pessoa, estes números, esta combinação.
+  const klInstr=N.kl.length
+    ? N.kl.map(k=>`Ausente ${k}(${NUM_ARCH[k]}): 1§ manifestação + 1§ como desenvolver.`).join(' ')
+    : `Mapa completo ${N.ss}/9 — 1§ sobre amplitude de recursos instintivos.`;
 
-2. PROIBIDO inventar significados para dívidas kármicas. Use SOMENTE os significados fornecidos no bloco KARMA acima. 13=trabalho, 14=liberdade/excesso, 16=queda do ego, 19=abuso de poder.
+  const USR=`Mapa numerológico completo para ${name}, ${dobFmt}${time?` ${time}h`:''}, ${N.age} anos.
 
-3. OBRIGATÓRIO cobrir os QUATRO Pinnacles — não apenas 1 e 3.
-
-4. OBRIGATÓRIO incluir a seção "Mensagem Final — O Fio de Ouro" completa.
-
-5. OBRIGATÓRIO explorar tensões e conexões entre números diferentes — o mapa não é uma lista de números isolados, é uma tapeçaria.
-
-6. Eu Subconsciente = quantos dos 9 números estão presentes no nome (${N.ss}/9) — NÃO é um número de valor. Descreva o que significa ter ${N.ss} dos 9 arquétipos ativos.
-
-7. Números Mestres 11, 22, 33 NUNCA se reduzem. Descreva sua vibração dupla (potencial elevado + tensão interna).
-
-8. PROIBIDO criar typos, inventar palavras ou combinar palavras de forma errada.
-
-9. Escreva em português brasileiro fluente e literário — como um escritor experiente, não como um chatbot.
-
-10. Seja direto e impactante. Diga verdades que a pessoa pode não querer ouvir mas precisa. Sem eufemismos desnecessários.`;
-
-  const USR=`Gere o mapa numerológico COMPLETO para os dados abaixo.
-
+DADOS:
 ${nb}
 
-ESTRUTURA OBRIGATÓRIA — siga exatamente esta ordem, use ## para seções e ### para subseções:
+SEÇÕES (## títulos, ### subtítulos):
 
 ## ✦ Abertura
-Dois parágrafos densos e impactantes dirigidos a ${firstName} (use "você" sempre).
-Não comece com "Ao olhar para seu nome..." ou frases genéricas de abertura.
-Comece com algo que surpreenda — uma observação específica sobre a combinação única de números deste mapa.
-${N.wordMasters.length?`Mencione que o nome ${N.wordMasters.map(m=>m.word).join(' e ')} carrega vibração mestre ${N.wordMasters.map(m=>m.val).join('/')} — explique o peso disso.`:''}
-${tensions.length?`Mencione a tensão central identificada: ${tensions[0]}`:''}
+2§ impactantes. Observação surpreendente desta combinação única.${N.wordMasters.length?` Destaque ${N.wordMasters.map(m=>`${m.word}=${m.val}`).join(',')}.`:''}${tensions.length?` Tensão: ${tensions[0]}`:''}
 
-## ☽ O Caminho de Vida — ${N.lp}${[11,22,33].includes(N.lp)?` [Número Mestre]`:''}
-Arquétipo: ${NUM_ARCH[N.lp]||N.lp}
-EXATAMENTE 5 parágrafos numerados internamente:
-§1 — A missão de vida ESPECÍFICA deste número para ${firstName}, conectada à sua idade atual (${N.age} anos) e ao momento de vida que está vivendo
-§2 — Os dons naturais deste caminho — cite exemplos concretos de como se manifestam no dia a dia, não abstrações
-§3 — As sombras e armadilhas específicas deste número — seja direto, não suavize
-§4 — Como honrar este caminho concretamente — ações, escolhas, atitudes específicas
-§5 — A interação deste LP com Expressão ${N.ex}, Alma ${N.so} e Personalidade ${N.pe} — onde há sinergia, onde há tensão
+## ☽ Caminho de Vida — ${N.lp}${[11,22,33].includes(N.lp)?' [MESTRE]':''} · ${NUM_ARCH[N.lp]||''}
+5§: §1 missão específica para ${firstName} aos ${N.age}a · §2 dons concretos · §3 sombras diretas · §4 ações específicas · §5 interação Ex${N.ex}+Al${N.so}+Pe${N.pe}
 
-## ✦ A Trindade do Nome
-
-### Expressão — ${N.ex}${[11,22,33].includes(N.ex)?' [Mestre]':''}
-Arquétipo: ${NUM_ARCH[N.ex]||N.ex}
-§1 — O que ${firstName} veio manifestar no mundo — específico, com exemplos de áreas de vida afetadas
-§2 — Como a Expressão ${N.ex} interage com o Caminho de Vida ${N.lp} — alinhamento ou tensão?
-
-### Impulso da Alma — ${N.so}${[11,22,33].includes(N.so)?' [Mestre]':''}
-Arquétipo: ${NUM_ARCH[N.so]||N.so}
-§1 — O desejo mais profundo da alma de ${firstName} — o que faz a vida ter sentido para esta pessoa especificamente
-§2 — O que acontece quando este impulso é reprimido ou negligenciado — consequências concretas
-
-### Personalidade — ${N.pe}${[11,22,33].includes(N.pe)?' [Mestre]':''}
-§1 — Como o mundo vê ${firstName} — e a diferença entre essa percepção e quem ${firstName} realmente é por dentro
-§2 — Como usar esta personalidade como alavanca, não como máscara
+## ✦ Trindade do Nome
+### Expressão ${N.ex}${[11,22,33].includes(N.ex)?' [M]':''} · ${NUM_ARCH[N.ex]||''}
+2§: o que veio manifestar + interação com LP${N.lp}
+### Alma ${N.so}${[11,22,33].includes(N.so)?' [M]':''} · ${NUM_ARCH[N.so]||''}
+2§: desejo profundo específico + consequências quando reprimido
+### Personalidade ${N.pe}${[11,22,33].includes(N.pe)?' [M]':''}
+2§: percepção externa vs interior real + como usar como alavanca
 
 ## ◈ Números Especiais
-Para cada item abaixo, escreva um parágrafo denso e específico — sem bullet points soltos:
+1§ denso cada: **Dia ${N.bd}** dom concreto · **Paixão ${N.hp}** padrão involuntário · **Equilíbrio ${N.bal}** reação em crises · **EU${N.ss}/9** base instintiva + ${9-N.ss} ausentes${N.bh!=null?` · **Hora ${N.bh}** subtom espiritual`:''}
 
-**Dia de Nascimento ${N.bd}:** o dom específico trazido ao nascer — cite uma habilidade ou tendência concreta
-**Paixão Oculta ${N.hp}:** o padrão que se repete involuntariamente na vida de ${firstName} — o que isso atrai, o que cria
-**Equilíbrio ${N.bal}:** como ${firstName} reage instintivamente sob pressão ou em crises — o que ajuda e o que atrapalha
-**Eu Subconsciente ${N.ss}/9:** ${firstName} tem ${N.ss} dos 9 arquétipos numerológicos ativos — o que isso significa para a base de confiança instintiva e os ${9-N.ss} arquétipos ausentes${N.bh!=null?`\n**Hora de Nascimento ${N.bh}:** a dimensão espiritual e o subtom que colore toda a personalidade`:''}
+## 🜂 Karma
+### Dívidas${N.kd.length?' '+N.kd.join('+'):' Carta Limpa'}
+${kdInstr}
+### Lições${N.kl.length?' Ausentes '+N.kl.join(','):' Completo'}
+${klInstr}
 
-## 🜂 Karma e Lições da Alma
+## ◉ Maturidade ${N.mat}
+2§: quem ${firstName} está se tornando + arco LP${N.lp}+Ex${N.ex}→${N.mat}
 
-### Dívidas Kármicas${N.kd.length?` — Números ${N.kd.join(' e ')}`:' — Carta Limpa'}
-${N.kd.length
-  ? N.kd.map(k=>`**Dívida ${k}:** ${KARMIC_MEANINGS[k]||''}\nEscreva 2 parágrafos: (1) como este padrão provavelmente se manifesta na vida de ${firstName} hoje — cite situações concretas possíveis; (2) o caminho prático de integração — o que fazer diferente.`).join('\n\n')
-  : `Nenhuma dívida detectada para ${firstName}. Escreva 1 parágrafo sobre o que uma carta karmicamente limpa significa — não é ausência de desafios, é ausência de padrões compulsivos de vidas anteriores. O que isso libera e o que exige.`}
+## ◎ Quatro Pinnacles
+**P1(${N.p1}) 0-${N.pinAge}a** · **P2(${N.p2}) ${N.pinAge}-${N.pinAge+9}a** · **P3(${N.p3}${[11,22,33].includes(N.p3)?' MESTRE':''}) ${N.pinAge+9}-${N.pinAge+18}a** · **P4(${N.p4}) ${N.pinAge+18}a+**
+1§ por Pinnacle. ATIVO ${N.curPin}º(${N.curPinN}): 1§ extra — o que este momento exige concretamente.
 
-### Lições Kármicas${N.kl.length?` — Ausentes: ${N.kl.join(', ')}`:'— Mapa Completo (${N.ss}/9)'}
-${N.kl.length
-  ? N.kl.map(k=>`**Número ${k} ausente (${NUM_ARCH[k]||k}):** escreva 1 parágrafo sobre como a ausência desta qualidade se manifesta em padrões de vida, e 1 parágrafo sobre como desenvolvê-la.`).join('\n\n')
-  : `Todos os 9 números presentes. Escreva sobre o que significa ter um mapa completo (${N.ss}/9) — a amplitude de recursos instintivos disponíveis para ${firstName}.`}
+## △ Desafios
+**Principal ${N.c3}:** 1§ obstáculo recorrente específico · **Progressão ${N.c1}→${N.c2}→${N.c4}:** 1§ arco de aprendizado
 
-## ◉ Maturidade — ${N.mat}
-§1 — Quem ${firstName} está se tornando na segunda metade da vida — não quem é agora, mas quem emerge
-§2 — Como a convergência de LP${N.lp} + Expressão${N.ex} = Maturidade${N.mat} cria uma trajetória específica — o arco da vida inteira em uma imagem
+## ◬ Angular · Capstone · Vogal
+§1 ${N.fl}(${lv(N.fl)}) padrão abertura · §2 ${N.ll}(${lv(N.ll)}) padrão fechamento · §3 ${N.fv} motivação pré-consciente
 
-## ◎ Os Quatro Pinnacles: A Arquitetura da Vida
-Analise TODOS OS QUATRO pinnacles:
-**1º Pinnacle (${N.p1}) — dos 0 aos ${N.pinAge} anos:** qual foi o tema central desta fase formativa
-**2º Pinnacle (${N.p2}) — dos ${N.pinAge} aos ${N.pinAge+9} anos:** o que esta fase pediu/pede
-**3º Pinnacle (${N.p3}${[11,22,33].includes(N.p3)?` [MESTRE]`:''}) — dos ${N.pinAge+9} aos ${N.pinAge+18} anos:** ${[11,22,33].includes(N.p3)?`Número Mestre — análise aprofundada obrigatória desta fase de alta intensidade`:'o tema de transformação'}
-**4º Pinnacle (${N.p4}) — dos ${N.pinAge+18} anos em diante:** o tema da maturidade final
-**Pinnacle ATIVO AGORA:** ${firstName} está no ${N.curPin}º Pinnacle (${N.curPinN}). Escreva 1 parágrafo específico sobre o que este momento exige concretamente — o que fazer, o que soltar.
+## ✧ Presente — Ano${N.py} · Mês${N.pm}
+3§: posição no ciclo 9 anos + o que o mês pede agora + orientação prática
 
-## △ Os Desafios de Vida
-**Desafio Principal ${N.c3}:** 1 parágrafo denso — este é o obstáculo recorrente de toda a vida, como se manifesta especificamente
-**Desafios de fase (${N.c1}, ${N.c2}, ${N.c4}):** 1 parágrafo conectando os três como uma progressão de aprendizado
-
-## ◬ Pedra Angular · Capstone · Primeira Vogal
-§1 — Pedra Angular **${N.fl}** (${lv(N.fl)}): como ${firstName} inicia ações, projetos e relacionamentos — o padrão de abertura
-§2 — Capstone **${N.ll}** (${lv(N.ll)}): como ${firstName} encerra, conclui e se despede — o padrão de fechamento
-§3 — Primeira Vogal **${N.fv}**: a motivação mais instintiva e pré-consciente — o que move antes de qualquer análise
-
-## ✧ O Momento Presente — Ano Pessoal ${N.py} · Mês Pessoal ${N.pm}
-§1 — O que o Ano ${N.py} significa na escala do ciclo de 9 anos — onde está ${firstName} nesta jornada
-§2 — O que o Mês ${N.pm} dentro do Ano ${N.py} está pedindo especificamente agora — ações concretas
-§3 — Uma orientação prática: o que fazer, o que evitar, o que cultivar nos próximos meses
-
-## ∞ Tabela — A Assinatura Energética Completa
-Gere a tabela com TODOS os 17 números. Formato EXATO — não quebre a tabela:
-| Número | Valor | Arquétipo Central | Sombra a Integrar |
+## ∞ Tabela Completa
+| Número | Valor | Arquétipo | Sombra |
 |---|---|---|---|
-(uma linha por número: Caminho de Vida, Expressão, Alma, Personalidade, Dia, Maturidade, Equilíbrio, Eu Subconsciente, Paixão Oculta, Pedra Angular, Capstone, Primeira Vogal${N.bh!=null?', Hora':''},  Ano Pessoal, Mês Pessoal, Pinnacle Atual, Desafio Principal)
+17 linhas: CaminhoVida Expressão Alma Personalidade Dia Maturidade Equilíbrio EuSubconsciente PaixãoOculta Angular Capstone PrimeiraVogal${N.bh!=null?' Hora':''} AnoPessoal MêsPessoal PinnacleAtivo DesafioPrincipal
 
 ## ✦ Mensagem Final — O Fio de Ouro
-OBRIGATÓRIO — 4 parágrafos que amarram tudo:
-§1 — A narrativa central da vida de ${firstName} em uma imagem poderosa — use uma metáfora ou imagem que conecte os temas principais
-§2 — A tensão central do mapa e como ela é, na verdade, o motor do crescimento
-§3 — O que este mapa revela que ${firstName} provavelmente já sente mas talvez não tenha palavras para expressar
-§4 — Uma palavra final direta, impactante, sem eufemismos${intent?` — responda diretamente à pergunta: "${intent}"`:''}`;
+4§: §1 metáfora central da jornada · §2 tensão como motor · §3 o que ${firstName} sente sem palavras · §4 verdade direta${intent?` — responda: "${intent}"`:''}`;
 
   try{
     const res=await fetch('/api/chat',{
@@ -645,7 +581,7 @@ OBRIGATÓRIO — 4 parágrafos que amarram tudo:
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
         model:'llama-3.3-70b-versatile',
-        max_tokens:8000,
+        max_tokens:6000,
         system:SYS,
         messages:[{role:'user',content:USR}]
       })
